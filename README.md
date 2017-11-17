@@ -1,4 +1,4 @@
-t# tutorial_react
+# tutorial_react
 Tutorial: Intro To React の作業用ワークスペースです。
 
 ・進捗
