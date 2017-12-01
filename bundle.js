@@ -70,41 +70,35 @@
 function Square(props) {
     return React.createElement(
         "button",
-        { className: "square", onClick: () => props.onClick() },
+        { key: props.index, className: "square", onClick: () => props.onClick() },
         props.value
     );
 }
 
 class Board extends React.Component {
     renderSquare(i) {
-        return React.createElement(Square, { value: this.props.squares[i], onClick: () => this.props.onClick(i) });
+        return React.createElement(Square, { index: i, value: this.props.squares[i], onClick: () => this.props.onClick(i) });
     }
 
     render() {
+        let col, row;
+        let boardRows = new Array();
+        for (col = 0; col < 3; col++) {
+            let squares = new Array();
+            for (row = 0; row < 3; row++) {
+                squares.push(this.renderSquare(col * 3 + row));
+            }
+            boardRows.push(React.createElement(
+                "div",
+                { key: col, className: "board-row" },
+                squares
+            ));
+        }
+
         return React.createElement(
             "div",
             null,
-            React.createElement(
-                "div",
-                { className: "board-row" },
-                this.renderSquare(0),
-                this.renderSquare(1),
-                this.renderSquare(2)
-            ),
-            React.createElement(
-                "div",
-                { className: "board-row" },
-                this.renderSquare(3),
-                this.renderSquare(4),
-                this.renderSquare(5)
-            ),
-            React.createElement(
-                "div",
-                { className: "board-row" },
-                this.renderSquare(6),
-                this.renderSquare(7),
-                this.renderSquare(8)
-            )
+            boardRows
         );
     }
 }
@@ -114,7 +108,8 @@ class Game extends React.Component {
         super();
         this.state = {
             history: [{
-                squares: Array(9).fill(null)
+                squares: Array(9).fill(null),
+                chengeSquare: 0
             }],
             xIsNext: true,
             stepNumber: 0
@@ -131,7 +126,8 @@ class Game extends React.Component {
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
             history: history.concat([{
-                squares: squares
+                squares: squares,
+                chengeSquare: i
             }]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext
@@ -151,13 +147,15 @@ class Game extends React.Component {
         const winner = calculateWinner(current.squares);
 
         const moves = history.map((step, move) => {
-            const desc = move ? 'Go to Move #' + move : 'Go to Game start';
+            const desc = move ? 'Go to Move ' + convartFormat(step.chengeSquare) : 'Go to Game start';
             return React.createElement(
                 "li",
                 { key: move },
                 React.createElement(
                     "button",
-                    { href: "#", onClick: () => this.jumpTo(move) },
+                    {
+                        style: this.state.stepNumber === move ? { fontWeight: 'bold' } : { fontWeight: 'normal' },
+                        onClick: () => this.jumpTo(move) },
                     desc
                 )
             );
@@ -210,6 +208,16 @@ function calculateWinner(squares) {
         }
     }
     return null;
+}
+
+function convartFormat(chengeSquare) {
+    let col = 1;
+    let row = 1;
+    if (chengeSquare) {
+        col = Math.floor(chengeSquare / 3) + 1;
+        row = chengeSquare % 3 + 1;
+    }
+    return '(' + col + ', ' + row + ')';
 }
 
 /***/ })
