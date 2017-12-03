@@ -5,5 +5,5 @@ Tutorial: Intro To React の作業用ワークスペースです。
 
 - [x] CodePen上で実行可能
 - [x] Chrome上で実行可能(webpackを用いてjsxをコンパイル)
-- [ ] チャレンジ課題完了
+- [x] チャレンジ課題完了
 
