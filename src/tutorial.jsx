@@ -1,44 +1,5 @@
-import ToggleButton from 'react-toggle-button'
-
-function Square(props) {
-    return (
-        <button 
-            key={props.index} 
-            className="square" 
-            onClick={() => props.onClick()}
-            style={props.highlight ? {backgroundColor: "yellow"} : {}}>
-            {props.value}
-        </button>
-    );
-}
-
-class Board extends React.Component {
-    renderSquare(i) {
-        const isHighlight = this.props.victoryLine ? this.props.victoryLine.indexOf(i) >= 0 : false;
-        return <Square 
-                    key={i} 
-                    index={i} 
-                    value={this.props.squares[i]} 
-                    highlight={isHighlight}
-                    onClick={() => this.props.onClick(i)} />;
-    }
-
-    render() {
-        let col, row;
-        let boardRows = new Array();
-        for (col = 0; col < 3; col++) {
-            let squares = new Array();
-            for (row = 0; row < 3; row++) {
-                squares.push(this.renderSquare(col * 3 + row));
-            }
-            boardRows.push(<div key={col} className="board-row">{squares}</div>);
-        }
-
-        return (
-            <div key="squares">{boardRows}</div>
-        );
-    }
-}
+import Board from './compoments/board'
+import GameInfo from './compoments/game_info'
 
 class Game extends React.Component {
     constructor() {
@@ -98,7 +59,7 @@ class Game extends React.Component {
             return;
         }
         squares[i] = this.state.xIsNext ? 'X' : 'O';
-        historyList[historyList.length -1] = {
+        historyList[historyList.length - 1] = {
             history: history.concat([{
                 squares: squares,
                 chengeSquare: i
@@ -109,7 +70,6 @@ class Game extends React.Component {
         this.setState({
             historyList: historyList,
             stepNumber: history.length,
-
             xIsNext: !this.state.xIsNext,
         });
     }
@@ -120,6 +80,12 @@ class Game extends React.Component {
             xIsNext: (step % 2) === 0
         });
     }
+
+    onToggle(value) {
+        this.setState({
+            sortAscending: !value,
+        })
+    }
     
     render() {
         const historyList = this.state.historyList;
@@ -127,55 +93,26 @@ class Game extends React.Component {
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
         
-        const moves = history.map((step, move) => {
-            const desc = move ?
-                'Go to Move ' + convartFormat(step.chengeSquare) :
-                'Go to Game start';
-            return (
-                <li key={move}>
-                    <button 
-                        style={this.state.stepNumber === move ? {fontWeight: 'bold'} : {fontWeight: 'normal'}} 
-                        onClick={() => this.jumpTo(move)}>
-                        {desc}
-                    </button>
-                </li>
-            );
-        });
-        if(!this.state.sortAscending){
-            moves.reverse();
-        }
-
-        let status;
-        if (winner) {
-            status = 'Winner: ' + current.squares[winner[0]];
-        } else if (this.state.stepNumber === 9) {
-            status = 'This Game is Draw'
-        } else {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');               
-        }
-        
         return (
             <div key="game" className="game">
                 <div key="game-board" className="game-board">
-                <Board key="board"
-                    squares={current.squares}
-                    onClick={i => this.handleClick(i)}
-                    victoryLine={winner}
-                />
+                    <Board key="board"
+                        squares={current.squares}
+                        onClick={i => this.handleClick(i)}
+                        victoryLine={winner}
+                    />
                 </div>
                 <div key="game-info" className="game-info">
-                    <div>{status}</div>
                     <button onClick={() => this.init()}>New Game</button>
-                    <ToggleButton
-                        inactiveLabel="9→1"
-                        activeLabel="1→9"
-                        value={this.state.sortAscending}
-                        onToggle={(value) => {
-                            this.setState({
-                                sortAscending: !value,
-                            })
-                        }} />
-                    <ol>{moves}</ol>
+                    <GameInfo key="info"
+                        history={history}
+                        winner={winner}
+                        stepNumber={this.state.stepNumber}
+                        xIsNext={this.state.xIsNext}
+                        sortAscending={this.state.sortAscending}
+                        onClickList={step => this.jumpTo(step)}
+                        onToggle={value => this.onToggle(value)}
+                    />
                 </div>
             </div>
         );
@@ -205,14 +142,4 @@ function calculateWinner(squares) {
         }
     }
     return null;
-}
-
-function convartFormat(chengeSquare) {
-    let col = 1;
-    let row = 1;
-    if (chengeSquare) {
-        col = Math.floor(chengeSquare / 3) + 1;
-        row = (chengeSquare % 3) + 1;
-    }
-    return '(' + col + ', ' + row + ')'
 }
