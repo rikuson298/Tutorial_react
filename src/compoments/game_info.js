@@ -49,8 +49,8 @@ function convartFormat(chengeSquare) {
     let col = 1;
     let row = 1;
     if (chengeSquare) {
-        col = Math.floor(chengeSquare / 3) + 1;
-        row = (chengeSquare % 3) + 1;
+        col = Math.floor(chengeSquare / 5) + 1;
+        row = (chengeSquare % 5) + 1;
     }
     return '(' + col + ', ' + row + ')'
 }

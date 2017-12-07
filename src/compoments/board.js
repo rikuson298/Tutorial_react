@@ -15,10 +15,10 @@ class Board extends React.Component {
     render() {
         let col, row;
         let boardRows = new Array();
-        for (col = 0; col < 3; col++) {
+        for (col = 0; col < 5; col++) {
             let squares = new Array();
-            for (row = 0; row < 3; row++) {
-                squares.push(this.renderSquare(col * 3 + row));
+            for (row = 0; row < 5; row++) {
+                squares.push(this.renderSquare(col * 5 + row));
             }
             boardRows.push(<div key={col} className="board-row">{squares}</div>);
         }
