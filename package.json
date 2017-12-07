@@ -1,0 +1,27 @@
+{
+  "name": "tutorial_react",
+  "version": "1.0.0",
+  "description": "Tutorial: Intro To React の作業用ワークスペースです。",
+  "main": "bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "git+https://github.com/rikuson298/tutorial_react.git",
+  "author": "sumioku_r <rikuson298@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rikuson298/tutorial_react/issues"
+  },
+  "homepage": "https://github.com/rikuson298/tutorial_react#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "react-toggle-button": "^2.2.0"
+  }
+}

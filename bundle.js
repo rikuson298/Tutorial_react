@@ -605,9 +605,12 @@ class Game extends React.Component {
     constructor() {
         super();
         this.state = {
-            history: [{
-                squares: Array(9).fill(null),
-                chengeSquare: 0
+            historyList: [{
+                history: [{
+                    squares: Array(9).fill(null),
+                    chengeSquare: 0
+                }],
+                winner: 0
             }],
             xIsNext: true,
             stepNumber: 0,
@@ -615,20 +618,59 @@ class Game extends React.Component {
         };
     }
 
+    init() {
+        const historyList = this.state.historyList.slice(0, this.state.historyList.length);
+        const history = historyList[historyList.length - 1].history.slice(0, this.state.stepNumber + 1);
+        const current = history[this.state.stepNumber];
+        const winner = calculateWinner(current.squares);
+        let newHistorySeq = historyList.length;
+        if (winner || this.state.stepNumber === 9) {
+            let result = winner ? current.squares[winner[0]] : "Draw";
+            historyList[newHistorySeq - 1] = {
+                history: history,
+                winner: result
+            };
+        } else {
+            newHistorySeq = newHistorySeq - 1;
+        }
+        historyList[newHistorySeq] = {
+            history: [{
+                squares: Array(9).fill(null),
+                chengeSquare: 0
+            }],
+            winner: "playing"
+        };
+        historyList.map((history, index) => console.log(index + 1 + ". Result:" + history.winner));
+        this.setState({
+            historyList: historyList,
+            xIsNext: true,
+            stepNumber: 0,
+            sortAscending: true,
+            result: false
+        });
+    }
+
     handleClick(i) {
-        var history = this.state.history.slice(0, this.state.stepNumber + 1);
+        const historyList = this.state.historyList.slice(0, this.state.historyList.length);
+        const history = historyList[historyList.length - 1].history.slice(0, this.state.stepNumber + 1);
         const current = history[this.state.stepNumber];
         const squares = current.squares.slice();
         if (calculateWinner(squares) || squares[i]) {
             return;
         }
         squares[i] = this.state.xIsNext ? 'X' : 'O';
-        this.setState({
+        historyList[historyList.length - 1] = {
             history: history.concat([{
                 squares: squares,
                 chengeSquare: i
             }]),
+            winner: 0
+        };
+
+        this.setState({
+            historyList: historyList,
             stepNumber: history.length,
+
             xIsNext: !this.state.xIsNext
         });
     }
@@ -641,7 +683,8 @@ class Game extends React.Component {
     }
 
     render() {
-        const history = this.state.history;
+        const historyList = this.state.historyList;
+        const history = historyList[historyList.length - 1].history;
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
 
@@ -666,6 +709,8 @@ class Game extends React.Component {
         let status;
         if (winner) {
             status = 'Winner: ' + current.squares[winner[0]];
+        } else if (this.state.stepNumber === 9) {
+            status = 'This Game is Draw';
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
@@ -689,6 +734,11 @@ class Game extends React.Component {
                     "div",
                     null,
                     status
+                ),
+                React.createElement(
+                    "button",
+                    { onClick: () => this.init() },
+                    "New Game"
                 ),
                 React.createElement(__WEBPACK_IMPORTED_MODULE_0_react_toggle_button___default.a, {
                     inactiveLabel: "9\u21921",
