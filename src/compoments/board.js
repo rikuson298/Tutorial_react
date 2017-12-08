@@ -1,4 +1,6 @@
-import {Square} from './square'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Square} from './square';
 
 class Board extends React.Component {
     renderSquare(i) {
@@ -15,10 +17,10 @@ class Board extends React.Component {
     render() {
         let col, row;
         let boardRows = new Array();
-        for (col = 0; col < 5; col++) {
+        for (col = 0; col < this.props.mode; col++) {
             let squares = new Array();
-            for (row = 0; row < 5; row++) {
-                squares.push(this.renderSquare(col * 5 + row));
+            for (row = 0; row < this.props.mode; row++) {
+                squares.push(this.renderSquare(col * this.props.mode + row));
             }
             boardRows.push(<div key={col} className="board-row">{squares}</div>);
         }

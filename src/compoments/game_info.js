@@ -1,11 +1,13 @@
-import ToggleButton from 'react-toggle-button'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ToggleButton from 'react-toggle-button';
 
 class GameInfo extends React.Component {
     render() {
         const current = this.props.history[this.props.stepNumber];
         const moves = this.props.history.map((step, move) => {
             const desc = move ?
-                'Go to Move ' + convartFormat(step.chengeSquare) :
+                'Go to Move ' + convartFormat(step.chengeSquare, this.props.mode) :
                 'Go to Game start';
             return (
                 <li key={move}>
@@ -24,7 +26,7 @@ class GameInfo extends React.Component {
         let status;
         if (this.props.winner) {
             status = 'Winner: ' + current.squares[this.props.winner[0]];
-        } else if (this.props.stepNumber === 9) {
+        } else if (this.props.stepNumber === Math.pow(this.props.mode, 2)) {
             status = 'This Game is Draw'
         } else {
             status = 'Next player: ' + (this.props.xIsNext ? 'X' : 'O');               
@@ -45,12 +47,12 @@ class GameInfo extends React.Component {
     }
 }
 
-function convartFormat(chengeSquare) {
+function convartFormat(chengeSquare, mode) {
     let col = 1;
     let row = 1;
     if (chengeSquare) {
-        col = Math.floor(chengeSquare / 5) + 1;
-        row = (chengeSquare % 5) + 1;
+        col = Math.floor(chengeSquare / mode) + 1;
+        row = (chengeSquare % mode) + 1;
     }
     return '(' + col + ', ' + row + ')'
 }
