@@ -15,15 +15,11 @@ class Board extends React.Component {
     }
 
     render() {
-        let col, row;
-        let boardRows = new Array();
-        for (col = 0; col < this.props.mode; col++) {
-            let squares = new Array();
-            for (row = 0; row < this.props.mode; row++) {
-                squares.push(this.renderSquare(col * this.props.mode + row));
-            }
-            boardRows.push(<div key={col} className="board-row">{squares}</div>);
-        }
+        const boardRows = Array.apply(null, Array(this.props.mode)).map((value, col) => {
+            const squares = Array.apply(null, Array(this.props.mode)).map((value, row) => {
+                return this.renderSquare(col * this.props.mode + row)});
+            return <div key={col} className="board-row">{squares}</div>;
+        });
 
         return (
             <div key="squares">{boardRows}</div>
