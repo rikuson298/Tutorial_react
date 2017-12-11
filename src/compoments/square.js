@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 
 function Square(props) {
     return (
-        <button 
-            key={props.index} 
-            className="square" 
+        <button
+            key={props.index}
+            className="square"
             onClick={() => props.onClick()}
             style={props.highlight ? {backgroundColor: "yellow"} : {}}>
             {props.value}
