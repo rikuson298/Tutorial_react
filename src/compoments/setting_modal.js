@@ -34,7 +34,6 @@ class SettingModal extends React.Component {
                             />
                         </form>
                     </Modal.Body>
-                    
                     <Modal.Footer>
                         <Button bsStyle="primary" onClick={this.props.closeModal}>Game Start!</Button>
                     </Modal.Footer>
@@ -45,4 +44,3 @@ class SettingModal extends React.Component {
 }
 
 export default SettingModal;
-                

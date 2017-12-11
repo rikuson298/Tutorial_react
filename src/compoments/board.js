@@ -5,12 +5,12 @@ import {Square} from './square';
 class Board extends React.Component {
     renderSquare(i) {
         const isHighlight = this.props.victoryLine ? this.props.victoryLine.indexOf(i) >= 0 : false;
-        return <Square 
-                    key={i} 
-                    index={i} 
-                    value={this.props.squares[i]} 
+        return <Square
+                    key={i}
+                    index={i}
+                    value={this.props.squares[i]}
                     highlight={isHighlight}
-                    onClick={() => this.props.onClick(i)} 
+                    onClick={() => this.props.onClick(i)}
                 />;
     }
 

@@ -11,7 +11,7 @@ class GameInfo extends React.Component {
                 'Go to Game start';
             return (
                 <li key={move}>
-                    <button 
+                    <button
                         style={this.props.stepNumber === move ? {fontWeight: 'bold'} : {fontWeight: 'normal'}} 
                         onClick={() => this.props.onClickList(move)}>
                         {desc}
@@ -29,7 +29,7 @@ class GameInfo extends React.Component {
         } else if (this.props.stepNumber === Math.pow(this.props.mode, 2)) {
             status = 'This Game is Draw'
         } else {
-            status = 'Next player: ' + (this.props.xIsNext ? 'X' : 'O');               
+            status = 'Next player: ' + (this.props.xIsNext ? 'X' : 'O');
         }
 
         return (
@@ -39,7 +39,7 @@ class GameInfo extends React.Component {
                     inactiveLabel="9→1"
                     activeLabel="1→9"
                     value={this.props.sortAscending}
-                    onToggle={() => this.props.onToggle(this.props.sortAscending)} 
+                    onToggle={() => this.props.onToggle(this.props.sortAscending)}
                 />
                 <ol>{moves}</ol>
             </div>
