@@ -41,11 +41,19 @@ ol, ul {
 }
   
 .game {
+    margin-left: 20px;
     display: flex;
     flex-direction: row;
 }
   
 .game-info {
     margin-left: 20px;
+}
+
+.selected-mode {
+    margin-left: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 16pt;
 }
   
