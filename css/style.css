@@ -6,7 +6,48 @@ body {
 ol, ul {
     padding-left: 30px;
 }
-  
+
+/* SMACSS規約 */
+
+.l-header {
+    margin-bottom: 20px;
+}
+     
+.l-footer {
+    border-top: 1px solid gray;
+}
+     
+.l-game {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+}
+     
+.l-info {
+    margin-left: 20px;
+}
+
+.l-grid-01, .l-grid-02, .l-grid-03, .l-grid-04, .l-grid-05, .l-grid-06, .l-grid-07, .l-grid-08, .l-grid-09, .l-grid-10, .l-grid-11, .l-grid-12 {
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.l-grid-01 { width: 30px; }
+.l-grid-02 { width: 70px; }
+.l-grid-03 { width: 110px; }
+.l-grid-04 { width: 150px; }
+.l-grid-05 { width: 190px; }
+.l-grid-06 { width: 230px; }
+.l-grid-07 { width: 270px; }
+.l-grid-08 { width: 310px; }
+.l-grid-09 { width: 350px; }
+.l-grid-10 { width: 390px; }
+.l-grid-11 { width: 430px; }
+.l-grid-12 { width: 470px; }
+
+.l-float-none { float: none; }
+
 .board-row:after {
     clear: both;
     content: "";
@@ -39,21 +80,23 @@ ol, ul {
 .kbd-navigation .square:focus {
     background: #ddd;
 }
-  
-.game {
-    margin-left: 20px;
-    display: flex;
-    flex-direction: row;
-}
-  
-.game-info {
-    margin-left: 20px;
-}
 
-.selected-mode {
+.selected-cpu, .selected-player, .selected-history {
     margin-left: 20px;
-    margin-bottom: 10px;
     font-weight: bold;
     font-size: 16pt;
 }
+
+.selected-cpu {
+  color: blue;
+}
+
+.selected-player {
+  color: crimson;
+}
+
+.selected-history {
+  color: darkgreen;
+}
+
   

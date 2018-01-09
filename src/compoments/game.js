@@ -56,23 +56,24 @@ class Game extends React.Component {
     const current = history[this.props.state.stepNumber];
     const winner = calculateWinner(current.squares, this.props.state.isThree ? 3 : 5);
     const selectedMode = this.props.state.showHistory ? 'Show History' : this.props.state.isCpu ? 'CPU Fight' : 'Player Fight';
+    const labelClass = this.props.state.showHistory ? 'selected-history' : this.props.state.isCpu ? 'selected-cpu' : 'selected-player';
     return (
       <div key="tictactoe" className="tictactoe">
-        <div key="header" className="header">
+        <div key="header" className="l-header">
           <Menubar
             key="menu"
             openHistoryModal={() => this.setState({ historyModalIsOpen: true })}
           />
+          <p key="selected-mode" className={labelClass}>{selectedMode}</p>
         </div>
-        <div key="selected-mode" className="selected-mode">{selectedMode}</div>
-        <div key="game" className="game">
+        <div key="game" className="l-game">
           <div key="game-board" className="game-board">
             <Board
               key="board"
               victoryLine={winner}
             />
           </div>
-          <div key="game-info" className="game-info">
+          <div key="game-info" className="l-info">
             <GameInfo
               key="info"
               winner={winner}

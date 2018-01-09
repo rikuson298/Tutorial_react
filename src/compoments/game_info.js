@@ -39,7 +39,7 @@ class GameInfo extends React.Component {
 
     return (
       <div>
-        <div>{status}</div>
+        <div className="l-grid-03">{status}</div>
         <ToggleButton
           inactiveLabel="9→1"
           activeLabel="1→9"

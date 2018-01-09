@@ -20,34 +20,46 @@ class SettingModal extends React.Component {
 
           <Modal.Body>
             <form>
-              <div>Squares : </div>
-              <ToggleButton
-                inactiveLabel="5"
-                activeLabel="3"
-                value={this.props.state.isThree}
-                onToggle={() => this.props.chengeMode()}
-              />
-              <div>CPU Fight : </div>
-              <ToggleButton
-                inactiveLabel="No"
-                activeLabel="Yes"
-                value={this.props.state.isCpu}
-                onToggle={() => this.props.chengeCpu()}
-              />
-              <div>CPU Order : </div>
-              <ToggleButton
-                inactiveLabel="Second"
-                activeLabel="First"
-                value={this.props.state.xIsCpu}
-                onToggle={() => this.props.chengeCpuOrder()}
-              />
-              <div>CPU Difficulty : </div>
-              <ToggleButton
-                inactiveLabel="Strong"
-                activeLabel="Weak"
-                value={this.props.state.cpuDifficulty}
-                onToggle={() => this.props.chengeCpuDifficulty()}
-              />
+              <div className="l-grid-05 l-float-none">
+                <div className="l-grid-03">Squares : </div>
+                <ToggleButton
+                  inactiveLabel="5"
+                  activeLabel="3"
+                  value={this.props.state.isThree}
+                  onToggle={() => this.props.chengeMode()}
+                />
+              </div>
+
+              <div className="l-grid-05 l-float-none">
+                <div className="l-grid-03">CPU Fight : </div>
+                <ToggleButton
+                  inactiveLabel="No"
+                  activeLabel="Yes"
+                  value={this.props.state.isCpu}
+                  onToggle={() => this.props.chengeCpu()}
+                />
+              </div>
+
+              <div className="l-grid-05 l-float-none">
+                <div className="l-grid-03">CPU Order : </div>
+                <ToggleButton
+                  inactiveLabel="Second"
+                  activeLabel="First"
+                  value={this.props.state.xIsCpu}
+                  onToggle={() => this.props.chengeCpuOrder()}
+                />
+              </div>
+
+              <div className="l-grid-05 l-float-none">
+                <div className="l-grid-03">CPU Difficulty : </div>
+                <ToggleButton
+                  inactiveLabel="Strong"
+                  activeLabel="Weak"
+                  value={this.props.state.cpuDifficulty}
+                  onToggle={() => this.props.chengeCpuDifficulty()}
+                />
+              </div>
+
             </form>
           </Modal.Body>
 
