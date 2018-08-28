@@ -1,48 +1,85 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import ToggleButton from 'react-toggle-button';
-import { Modal, Button } from "react-bootstrap";;
+import { Modal, Button } from 'react-bootstrap';
+import { closeModal, chengeCpu, chengeMode, chengeCpuOrder, chengeCpuDifficulty } from '../actions/actions';
 
 class SettingModal extends React.Component {
-    render() {
-        return (
-            <div>
-                <Modal
-                    show={this.props.show}
-                    onHide={this.props.closeModal}
-                    backdrop='static'>
+  render() {
+    return (
+      <div>
+        <Modal
+          show={this.props.state.modalIsOpen}
+          onHide={() => this.props.closeModal()}
+          backdrop="static"
+        >
 
-                    <Modal.Header closeButton={false}>
-                        <Modal.Title>Game Mode Setting</Modal.Title>
-                    </Modal.Header>
+          <Modal.Header closeButton={false}>
+            <Modal.Title>Game Mode Setting</Modal.Title>
+          </Modal.Header>
 
-                    <Modal.Body>
-                        <form>
-                            <div>Squares : </div>
-                            <ToggleButton
-                                inactiveLabel="5"
-                                activeLabel="3"
-                                value={this.props.isThree}
-                                onToggle={() => this.props.onToggleMode(this.props.isThree)} 
-                            />
-                            <div>CPU Fight : </div>
-                            <ToggleButton
-                                inactiveLabel="No"
-                                activeLabel="Yes"
-                                value={this.props.isCpu}
-                                onToggle={() => this.props.onToggleCpu(this.props.isCpu)} 
-                            />
-                        </form>
-                    </Modal.Body>
-                    
-                    <Modal.Footer>
-                        <Button bsStyle="primary" onClick={this.props.closeModal}>Game Start!</Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        );
-    }
+          <Modal.Body>
+            <form>
+              <div className="l-grid-05 l-float-none">
+                <div className="l-grid-03">Squares : </div>
+                <ToggleButton
+                  inactiveLabel="5"
+                  activeLabel="3"
+                  value={this.props.state.isThree}
+                  onToggle={() => this.props.chengeMode()}
+                />
+              </div>
+
+              <div className="l-grid-05 l-float-none">
+                <div className="l-grid-03">CPU Fight : </div>
+                <ToggleButton
+                  inactiveLabel="No"
+                  activeLabel="Yes"
+                  value={this.props.state.isCpu}
+                  onToggle={() => this.props.chengeCpu()}
+                />
+              </div>
+
+              <div className="l-grid-05 l-float-none">
+                <div className="l-grid-03">CPU Order : </div>
+                <ToggleButton
+                  inactiveLabel="Second"
+                  activeLabel="First"
+                  value={this.props.state.xIsCpu}
+                  onToggle={() => this.props.chengeCpuOrder()}
+                />
+              </div>
+
+              <div className="l-grid-05 l-float-none">
+                <div className="l-grid-03">CPU Difficulty : </div>
+                <ToggleButton
+                  inactiveLabel="Strong"
+                  activeLabel="Weak"
+                  value={this.props.state.cpuDifficulty}
+                  onToggle={() => this.props.chengeCpuDifficulty()}
+                />
+              </div>
+
+            </form>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button bsStyle="primary" onClick={() => this.props.closeModal()}>Game Start!</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
+  }
 }
 
-export default SettingModal;
-                
+function mapStateToProps(state) {
+  return { state };
+}
+
+export default connect(mapStateToProps, {
+  closeModal,
+  chengeCpu,
+  chengeMode,
+  chengeCpuOrder,
+  chengeCpuDifficulty,
+})(SettingModal);
