@@ -2,7 +2,7 @@ import { ActionType } from '../actions/actions';
 import { calculateWinner } from '../utils/calculate_winner';
 import { dateReviver } from '../utils/date_util';
 
-const initialHistoryList = window.localStorage.getItem('tictactoe') ? JSON.parse(window.localStorage.getItem('tictactoe'), dateReviver) : {
+const initialHistoryList = [{
   history: [{
     squares: Array(Math.pow(3, 2)).fill(null),
     chengeSquare: 0,
@@ -13,10 +13,10 @@ const initialHistoryList = window.localStorage.getItem('tictactoe') ? JSON.parse
   isCpu: true,
   xIsCpu: false,
   cpuDifficulty: false,
-};
+}];
 
 const initialState = {
-  historyList: initialHistoryList,
+  historyList: window.localStorage.getItem('tictactoe') ? JSON.parse(window.localStorage.getItem('tictactoe'), dateReviver) : initialHistoryList,
   xIsNext: true,
   stepNumber: 0,
   sortAscending: true,
