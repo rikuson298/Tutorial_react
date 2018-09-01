@@ -1,10 +1,9 @@
 # tutorial_react
 Tutorial: Intro To React の作業用ワークスペースです。
 
-    npm init
     npm install
     node_modules/.bin/webpack
-    open TicTacToe.html
+    open index.html
 
 ## 課題内容
 ### 1.Intro To React
